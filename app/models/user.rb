@@ -23,6 +23,7 @@
 #  index_users_on_phone_number           (phone_number) UNIQUE
 #
 class User < ApplicationRecord
+  phony_normalize :phone_number, default_country_code: 'US'
   has_one :Phone
 
   def find_by_phone_number(phone_number)

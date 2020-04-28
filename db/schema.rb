@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_010004) do
     t.datetime "verification_code_expires_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["number"], name: "index_phones_on_number"
+    t.index ["number"], name: "index_phones_on_number", unique: true
     t.index ["user_id"], name: "index_phones_on_user_id"
   end
 
