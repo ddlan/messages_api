@@ -17,4 +17,10 @@ module ApiExceptions
     end
   end
 
+  class PhoneNotFound < ClientException
+    def initialize
+      super(status: :unprocessable_entity, message: 'phone number not found')
+    end
+  end
+
 end

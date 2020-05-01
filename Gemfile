@@ -32,6 +32,7 @@ gem 'phony'
 gem 'phony_rails' # Include phony_rails after mongoid (if you use mongoid, see issue #66 on github).
 gem 'sidekiq'
 gem 'twilio-ruby', '~> 5.33.1'
+gem 'rack-attack'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

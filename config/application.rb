@@ -27,6 +27,7 @@ module Untitled
     config.active_job.queue_adapter = :sidekiq
     config.autoload_paths << "#{Rails.root}/lib"
     config.eager_load_paths << "#{Rails.root}/lib"
+    config.middleware.use Rack::Attack
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

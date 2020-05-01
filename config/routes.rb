@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :phones, only: [:create]
+
+      resource :verification_code, only: [:show], controller: 'phones', to: 'phones#verification_code'
     end
   end
 end

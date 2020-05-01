@@ -52,4 +52,14 @@ class Phone < ApplicationRecord
       phone
     end
   end
+
+  def update_verification_code!
+    verification_code = Phone.generate_verification_code
+    verification_code_expires_at = 5.minutes.from_now
+
+    update!(
+        verification_code: verification_code,
+        verification_code_expires_at: verification_code_expires_at
+    )
+  end
 end
