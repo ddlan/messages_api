@@ -23,10 +23,13 @@
 #  index_users_on_phone_number           (phone_number) UNIQUE
 #
 class User < ApplicationRecord
+  enum status: [ :registration_incomplete, :registration_complete, :banned ]
   phony_normalize :phone_number, default_country_code: 'US'
   has_one :Phone
 
-  def find_by_phone_number(phone_number)
-
+  class << self
+    def find_or_create!(phone_number)
+      User.find_by(phone_number: phone_number) || User.create!(phone_number: phone_number)
+    end
   end
 end

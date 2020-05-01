@@ -1,5 +1,5 @@
 class Api::V1::PhonesController < Api::BaseController
-  before_action :set_phone_number_params, only: [:create, :verification_code]
+  before_action :set_create_params, only: [:create, :verification_code]
 
   # POST /api/v1/phone
   def create
@@ -17,9 +17,10 @@ class Api::V1::PhonesController < Api::BaseController
     render status: :ok, json: {}
   end
 
-  def set_phone_number_params
+  def set_create_params
+    raise ApiExceptions::MissingParameters unless params[:phone_number]
     @phone_number = params[:phone_number]
     raise ApiExceptions::PhoneNotPlausible unless Phony.plausible?(@phone_number)
-    @phone_number = '+' + Phony.normalize(@phone_number)
+    @phone_number = Phone.normalize_number(@phone_number)
   end
 end

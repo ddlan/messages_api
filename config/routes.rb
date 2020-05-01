@@ -5,6 +5,11 @@ Rails.application.routes.draw do
       resource :phones, only: [:create]
 
       resource :verification_code, only: [:show], controller: 'phones', to: 'phones#verification_code'
+
+      scope 'auth' do
+        # /api/v1/login
+        post 'login', to: 'authenticated#login'
+      end
     end
   end
 end
