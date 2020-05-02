@@ -1,24 +1,10 @@
-# README
+# README v1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Install RubyMine: Use student account to register for free
+2. Install ruby (use 2.6.5): https://stackify.com/install-ruby-on-your-mac-everything-you-need-to-get-going/
+3. Install rails: https://gorails.com/setup/osx/10.15-catalina
+4. run: "bundle install" into the command line. should install all the gems
+5. Install postgres: https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-macos
+6. setup database by running: "rake db:setup"
+7. setup environment variables
+8. To start rails server run rails server. 
