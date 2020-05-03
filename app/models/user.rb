@@ -25,11 +25,18 @@
 class User < ApplicationRecord
   enum status: [ :registration_incomplete, :registration_complete, :banned ]
   phony_normalize :phone_number, default_country_code: 'US'
+  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
+
   has_one :Phone
 
   class << self
     def find_or_create!(phone_number)
       User.find_by(phone_number: phone_number) || User.create!(phone_number: phone_number)
     end
+  end
+
+  def update_registration_data!(first_name, last_name, email_address)
+    return unless registration_incomplete?
+    update!(first_name: first_name, last_name: last_name, email_address: email_address, status: :registration_complete)
   end
 end

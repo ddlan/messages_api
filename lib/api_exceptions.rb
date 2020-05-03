@@ -12,6 +12,9 @@ module ApiExceptions
   class ServerException < BaseException; end
   class UnauthorizedException < BaseException; end
 
+  ###########################################################################
+  #                           Client Exception                              #
+  # #########################################################################
   class MissingParameters < ClientException
     def initialize
       super(status: :unprocessable_entity, message: 'request parameters missing')
@@ -36,6 +39,15 @@ module ApiExceptions
     end
   end
 
+  class EmailNotPlausible < ClientException
+    def initialize
+      super(status: :unprocessable_entity, message: 'email is invalid')
+    end
+  end
+
+  ###########################################################################
+  #                         Unauthorized Exception                          #
+  # #########################################################################
   class VerificationCodeExpired < UnauthorizedException
     def initialize
       super(status: :unauthorized, message: 'verification code expired')

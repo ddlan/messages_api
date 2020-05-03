@@ -1,15 +1,17 @@
 class Api::V1::UsersController < Api::V1::AuthenticatedController
-  before_action :set_user_params, only: [:create]
+  include EmailMixin
+  before_action :set_update_params, only: [:update]
 
-
-  def create
-  #  TODO
+  # PUT /api/v1/users
+  def update
+    current_user.update_registration_data!(@first_name, @last_name, @email)
+    render status: :ok, json: {}
   end
 
-  def set_user_params
-    @first_name = params[:first_name]
-    @last_name = params[:last_name]
-    @phone_number = params[:phone_number]
-    @email = params[:email]
+  def set_update_params
+    @first_name = params.fetch(:first_name)
+    @last_name = params.fetch(:last_name)
+    @email = params.fetch(:email)
+    raise ApiExceptions::EmailNotPlausible unless is_email_plausible?(@email)
   end
 end

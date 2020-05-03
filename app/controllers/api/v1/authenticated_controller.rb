@@ -1,7 +1,8 @@
 class Api::V1::AuthenticatedController < Api::BaseController
-
   before_action :authenticate, except: [:login]
   before_action :set_login_params, only: [:login]
+
+  attr_reader :current_user
 
   def login
     phone = Phone.find_by(number: @phone_number)
@@ -26,10 +27,9 @@ class Api::V1::AuthenticatedController < Api::BaseController
   end
 
   def set_login_params
-    raise ApiExceptions::MissingParameters unless params[:verification_code] && params[:phone_number]
-    @verification_code = params[:verification_code].to_s.strip
+    @verification_code = params.fetch(:verification_code).to_s.strip
+    @phone_number = params.fetch(:phone_number)
     raise ApiExceptions::VerificationCodeInvalid unless Phone.verification_code_plausible?(@verification_code)
-    @phone_number = params[:phone_number]
     raise ApiExceptions::PhoneNotPlausible unless Phony.plausible?(@phone_number)
     @phone_number = Phone.normalize_number(@phone_number)
   end

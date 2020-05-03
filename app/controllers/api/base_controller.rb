@@ -7,6 +7,7 @@ class Api::BaseController < ActionController::API
   HTTP_HEADER_AUTHORIZATION = 'Authorization'.freeze
 
   rescue_from StandardError, with: :render_standard_error
+  rescue_from KeyError, with: :render_key_error
   rescue_from ApiExceptions::ClientException, with: :render_client_exception
   rescue_from ApiExceptions::ServerException, with: :render_server_exception
   rescue_from ApiExceptions::UnauthorizedException, with: :render_unauthorized_exception
@@ -29,6 +30,13 @@ class Api::BaseController < ActionController::API
     render status: :internal_server_error, json: {
         status: :internal_server_error,
         message: 'internal server error'
+    }
+  end
+
+  def render_key_error(e)
+    render status: :bad_request, json: {
+        status: :bad_request,
+        message: e.message
     }
   end
 

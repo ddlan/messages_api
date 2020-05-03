@@ -18,8 +18,7 @@ class Api::V1::PhonesController < Api::BaseController
   end
 
   def set_create_params
-    raise ApiExceptions::MissingParameters unless params[:phone_number]
-    @phone_number = params[:phone_number]
+    @phone_number = params.fetch(:phone_number)
     raise ApiExceptions::PhoneNotPlausible unless Phony.plausible?(@phone_number)
     @phone_number = Phone.normalize_number(@phone_number)
   end

@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :phone_number, index: { unique: true }
       t.string :email_address, index: { unique: true }
       t.string :email_verification_code
-      t.boolean :is_email_verified
+      t.boolean :is_email_verified, default: false
       t.string :first_name
       t.string :last_name
       t.integer :status, default: 0
